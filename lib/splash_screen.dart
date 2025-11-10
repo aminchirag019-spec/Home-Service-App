@@ -73,3 +73,4 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 }
+// i changed this and now we will generate pr for this
