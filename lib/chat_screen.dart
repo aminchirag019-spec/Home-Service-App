@@ -23,9 +23,9 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseReference _chatListDatabase =
-  FirebaseDatabase.instance.ref().child('ChatList');
+      FirebaseDatabase.instance.ref().child('ChatList');
   final DatabaseReference _chatDatabase =
-  FirebaseDatabase.instance.ref().child('Chat');
+      FirebaseDatabase.instance.ref().child('Chat');
   final TextEditingController _messageController = TextEditingController();
   String? _currentUserId;
 
@@ -81,7 +81,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String? chatPartnerName = isProvider ? widget.userName : widget.providerName;
+    String? chatPartnerName =
+        isProvider ? widget.userName : widget.providerName;
 
     return GestureDetector(
       onTap: () {
@@ -110,7 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                       messagesMap.forEach((key, value) {
                         if ((value['sender'] == _currentUserId &&
-                            value['receiver'] == widget.providerId) ||
+                                value['receiver'] == widget.providerId) ||
                             (value['sender'] == widget.providerId &&
                                 value['receiver'] == _currentUserId) ||
                             (value['sender'] == _currentUserId &&
@@ -125,7 +126,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
                       });
                       messagesList.sort(
-                              (a, b) => a['timestamp'].compareTo(b['timestamp']));
+                          (a, b) => a['timestamp'].compareTo(b['timestamp']));
 
                       return ListView.builder(
                           itemCount: messagesList.length,
@@ -147,15 +148,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                       : Color(0xffE3E3E3),
                                   borderRadius: isMe
                                       ? BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.zero)
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.zero)
                                       : BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10),
-                                      bottomLeft: Radius.zero,
-                                      bottomRight: Radius.circular(10)),
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
+                                          bottomLeft: Radius.zero,
+                                          bottomRight: Radius.circular(10)),
                                 ),
                                 child: Text(messagesList[index]['message']),
                               ),
@@ -172,8 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: TextField(
                         keyboardType: TextInputType.multiline,
                         style: GoogleFonts.poppins(
-                            fontSize: 14, fontWeight: FontWeight.normal
-                        ),
+                            fontSize: 14, fontWeight: FontWeight.normal),
                         controller: _messageController,
                         decoration: InputDecoration(
                             filled: true,
@@ -182,7 +182,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide:
-                                BorderSide(color: Color(0xffC8C4FF)))),
+                                    BorderSide(color: Color(0xffC8C4FF)))),
                       ),
                     ),
                   ),
