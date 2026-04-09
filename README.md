@@ -87,7 +87,4 @@ flutter build ios   # For iOS
 
 Report issues via GitHub
 
-
-Contact me at jayspatel420005@gmail.com for support
-
-Made with ❤️ by Amin chirag 🚀
+Made with ❤️ BY Rudra Prajapati 🚀
