@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "711216868924",
+    "firebase_url": "https://homeservice-bde1f-default-rtdb.firebaseio.com",
+    "project_id": "homeservice-bde1f",
+    "storage_bucket": "homeservice-bde1f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711216868924:android:1ee2a11e62ad8e943d5d39",
+        "android_client_info": {
+          "package_name": "com.example.jayshomeserviceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUZkNFM2RoD98GZ2VgDCXUUF__V5-IHJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
