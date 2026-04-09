@@ -241,7 +241,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
+                           borderSide: BorderSide(
                             color: Color(0xff0064FA),
                             width: 1.0,
                           ),
