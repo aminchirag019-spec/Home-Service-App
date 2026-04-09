@@ -120,257 +120,295 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   SizedBox(height: 16,),
-                  SizedBox(
-                    height: 44,
-                    child: TextFormField(
-                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.only(left: 10, right: 10),
-                        labelText: 'Email',
-                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0), // Rounded corners
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA), // Blue border color
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA), // Blue border color when focused
-                            width: 1.0, // Border width
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA), // Blue border color when not focused
-                            width: 1.0, // Border width
-                          ),
+                  TextFormField(
+                    style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'Email',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0), // Rounded corners
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA), // Blue border color
+                          width: 1.0, // Border width
                         ),
                       ),
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (val) => email = val,
-                      validator: (val) => val!.isEmpty ? 'Enter an email' : null,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA), // Blue border color when focused
+                          width: 1.0, // Border width
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA), // Blue border color when not focused
+                          width: 1.0, // Border width
+                        ),
+                      ),
                     ),
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (val) => email = val,
+                    validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                   ),
                   SizedBox(height: 10,),
-                  SizedBox(
-                    height: 44,
-                    child: TextFormField(
-                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        labelText: 'Password',
-                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscureText ? Icons.visibility_off : Icons.visibility,
-                            color: Colors.grey.shade400,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
+                  TextFormField(
+                    style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'Password',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
                         ),
                       ),
-                      obscureText: _obscureText,
-                      keyboardType: TextInputType.text,
-                      onChanged: (val) => password = val,
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Password is required';
-                        }
-                        if (val.length < 8) {
-                          return 'Password must be at least 8 characters long';
-                        }
-                        if (!RegExp(r'[A-Z]').hasMatch(val)) {
-                          return 'Include at least one uppercase letter';
-                        }
-                        if (!RegExp(r'[a-z]').hasMatch(val)) {
-                          return 'Include at least one lowercase letter';
-                        }
-                        if (!RegExp(r'[0-9]').hasMatch(val)) {
-                          return 'Include at least one number';
-                        }
-                        if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(val)) {
-                          return 'Include at least one special character';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 0,),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    height: 44,
-                    child: TextFormField(
-                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        labelText: 'Phone Number',
-                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
                         ),
                       ),
-                      keyboardType: TextInputType.phone,
-                      onChanged: (val) => phoneNumber = val,
-                      validator: (val) => val!.isEmpty ? 'Please enter a phone number' : null,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText ? Icons.visibility_off : Icons.visibility,
+                          color: Colors.grey.shade400,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
                     ),
+                    obscureText: _obscureText,
+                    keyboardType: TextInputType.text,
+                    onChanged: (val) => password = val,
+                    validator: (val) {
+                      if (val == null || val.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (val.length < 8) {
+                        return 'Password must be at least 8 characters long';
+                      }
+                      if (!RegExp(r'[A-Z]').hasMatch(val)) {
+                        return 'Include at least one uppercase letter';
+                      }
+                      if (!RegExp(r'[a-z]').hasMatch(val)) {
+                        return 'Include at least one lowercase letter';
+                      }
+                      if (!RegExp(r'[0-9]').hasMatch(val)) {
+                        return 'Include at least one number';
+                      }
+                      if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(val)) {
+                        return 'Include at least one special character';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 10,),
-                  SizedBox(
-                    height: 44,
-                    child: TextFormField(
-                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        labelText: 'First Name',
-                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
+                  TextFormField(
+                    style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'Phone Number',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
                         ),
                       ),
-                      keyboardType: TextInputType.text,
-                      onChanged: (val) => firstName = val,
-                      validator: (val) => val!.isEmpty ? 'Please enter a first name' : null,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
                     ),
+                    keyboardType: TextInputType.phone,
+                    onChanged: (val) => phoneNumber = val,
+                    validator: (val) => val!.isEmpty ? 'Please enter a phone number' : null,
                   ),
                   SizedBox(height: 10,),
-                  SizedBox(
-                    height: 44,
-                    child: TextFormField(
-                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        labelText: 'Last Name',
-                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Color(0xff0064FA),
-                            width: 1.0,
-                          ),
+                  TextFormField(
+                    style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'First Name',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
                         ),
                       ),
-                      keyboardType: TextInputType.text,
-                      onChanged: (val) => lastName = val,
-                      validator: (val) => val!.isEmpty ? 'Please enter a last name' : null,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
                     ),
+                    keyboardType: TextInputType.text,
+                    onChanged: (val) => firstName = val,
+                    validator: (val) => val!.isEmpty ? 'Please enter a first name' : null,
+                  ),
+                  SizedBox(height: 10,),
+                  TextFormField(
+                    style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'Last Name',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    keyboardType: TextInputType.text,
+                    onChanged: (val) => lastName = val,
+                    validator: (val) => val!.isEmpty ? 'Please enter a last name' : null,
                   ),
                   SizedBox(height: 16,),
-                  SizedBox(
-                    height: 44,
-                    child: DropdownButtonFormField<String>(
-                      value: city,
+                  DropdownButtonFormField<String>(
+                    value: city,
+                    items: [
+                      'Ahemedabad',
+                      'Surat',
+                      'vadodara',
+                      'Rajkot'
+                    ].map((String city) {
+                      return DropdownMenuItem(
+                        value: city,
+                        child: Text(
+                          city,
+                          style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        city = val!;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xffF0EFFF),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                      labelText: 'City',
+                      labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Color(0xff0064FA),
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    validator: (val) => val == null ? 'Select a city' : null,
+                  ),
+                  SizedBox(height: 10,),
+
+                  if (userType == 'Provider') ...[
+                    SizedBox(height: 10,),
+                    DropdownButtonFormField<String>(
+                      value: category,
                       items: [
-                        'Ahemedabad',
-                        'Surat',
-                        'vadodara',
-                        'Rajkot'
-                      ].map((String city) {
+                        'Plumber',
+                        'Electrical',
+                        'Cleaning',
+                        'Carpentry'
+                      ].map((String category) {
                         return DropdownMenuItem(
-                          value: city,
+                          value: category,
                           child: Text(
-                            city,
+                            category,
                             style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
                           ),
                         );
                       }).toList(),
                       onChanged: (val) {
                         setState(() {
-                          city = val!;
+                          category = val!;
                         });
                       },
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Color(0xffF0EFFF),
-                        contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        labelText: 'City',
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                        labelText: 'Category',
                         labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -394,104 +432,42 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                       ),
-                      validator: (val) => val == null ? 'Select a city' : null,
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-
-                  if (userType == 'Provider') ...[
-                    SizedBox(height: 10,),
-                    SizedBox(
-                      height: 44,
-                      child: DropdownButtonFormField<String>(
-                        value: category,
-                        items: [
-                          'Plumber',
-                          'Electrical',
-                          'Cleaning',
-                          'Carpentry'
-                        ].map((String category) {
-                          return DropdownMenuItem(
-                            value: category,
-                            child: Text(
-                              category,
-                              style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (val) {
-                          setState(() {
-                            category = val!;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xffF0EFFF),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                          labelText: 'Category',
-                          labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
-                          ),
-                        ),
-                        validator: (val) => val == null ? 'Select a category' : null,
-                      ),
+                      validator: (val) => val == null ? 'Select a category' : null,
                     ),
                     SizedBox(height: 10,),
-                    SizedBox(
-                      height: 44,
-                      child: TextFormField(
-                        style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xffF0EFFF),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                          labelText: 'Year of Experience',
-                          labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: BorderSide(
-                              color: Color(0xff0064FA),
-                              width: 1.0,
-                            ),
+                    TextFormField(
+                      style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color(0xffF0EFFF),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                        labelText: 'Year of Experience',
+                        labelStyle: GoogleFonts.poppins(fontSize: 13, color: Colors.grey.shade400),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color(0xff0064FA),
+                            width: 1.0,
                           ),
                         ),
-                        keyboardType: TextInputType.number,
-                        onChanged: (val) => yearsOfExperience = val,
-                        validator: (val) => val!.isEmpty ? 'Please enter year of experience' : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color(0xff0064FA),
+                            width: 1.0,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: BorderSide(
+                            color: Color(0xff0064FA),
+                            width: 1.0,
+                          ),
+                        ),
                       ),
+                      keyboardType: TextInputType.number,
+                      onChanged: (val) => yearsOfExperience = val,
+                      validator: (val) => val!.isEmpty ? 'Please enter year of experience' : null,
                     ),
                   ],
                   SizedBox(height: 10,),
