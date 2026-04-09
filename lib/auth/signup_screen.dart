@@ -204,9 +204,27 @@ class _RegisterPageState extends State<RegisterPage> {
                       obscureText: _obscureText,
                       keyboardType: TextInputType.text,
                       onChanged: (val) => password = val,
-                      validator: (val) => val!.length < 6
-                          ? 'Password must be at least 6 characters'
-                          : null,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (val.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        if (!RegExp(r'[A-Z]').hasMatch(val)) {
+                          return 'Include at least one uppercase letter';
+                        }
+                        if (!RegExp(r'[a-z]').hasMatch(val)) {
+                          return 'Include at least one lowercase letter';
+                        }
+                        if (!RegExp(r'[0-9]').hasMatch(val)) {
+                          return 'Include at least one number';
+                        }
+                        if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(val)) {
+                          return 'Include at least one special character';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   SizedBox(height: 10,),
