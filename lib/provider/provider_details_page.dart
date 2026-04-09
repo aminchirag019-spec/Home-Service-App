@@ -6,13 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../chat_screen.dart';
 import 'model/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ProviderDetailPage extends StatefulWidget {
   final Provider provider;
 
-  ProviderDetailPage({super.key, required this.provider});
+  const ProviderDetailPage({super.key, required this.provider});
 
   @override
   State<ProviderDetailPage> createState() => _ProviderDetailPageState();
@@ -20,21 +18,12 @@ class ProviderDetailPage extends StatefulWidget {
 
 class _ProviderDetailPageState extends State<ProviderDetailPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final DatabaseReference _requestDatabase = FirebaseDatabase.instance.ref('Requests');
+  final DatabaseReference _requestDatabase = FirebaseDatabase.instance
+      .ref('Requests'); //  it will store appointments requests
 
-  Razorpay razorpay = Razorpay();
   TextEditingController _descriptionController = TextEditingController();
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
-  bool a = false;
-  bool _paymentSuccessful = false;  // To track payment status
-
-  @override
-  void initState() {
-    super.initState();
-    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +37,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Profile Section (Same as before)
               Row(
                 children: [
                   Container(
@@ -89,6 +79,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                       SizedBox(height: 4),
                       Text(
                         'From: ${widget.provider.city}',
+                        // Example location; replace with actual data if available
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Color(0xffFA9600),
@@ -107,6 +98,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                               color: Colors.blue,
                             ),
                             onPressed: () {
+                              // Add phone call functionality
                               _makePhoneCall(widget.provider.phoneNumber);
                             },
                           ),
@@ -118,6 +110,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                               color: Colors.blue,
                             ),
                             onPressed: () {
+                              // Add chat functionality
                               String currentUserId = _auth.currentUser!.uid;
                               String docName =
                                   '${widget.provider.firstName.toString()} ${widget.provider.lastName.toString()}';
@@ -133,13 +126,14 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                                 ),
                               );
                             },
-                          ),
+                          )
                         ],
                       ),
                     ],
                   ),
                 ],
               ),
+
               SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
@@ -152,7 +146,10 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: _openMap,
+                  onPressed: () {
+                    // Add map location functionality
+                    _openMap();
+                  },
                   child: Text(
                     'VIEW LOCATION ON MAP',
                     style: GoogleFonts.poppins(
@@ -198,7 +195,8 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                             child: Text(
                               _selectedDate == null
                                   ? 'Select Date'
-                                  : DateFormat('MM/dd/yyyy').format(_selectedDate!),
+                                  : DateFormat('MM/dd/yyyy')
+                                  .format(_selectedDate!),
                               style: GoogleFonts.poppins(
                                   fontSize: 15, letterSpacing: 0.6),
                             ),
@@ -245,69 +243,8 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    value: a,
-                    onChanged: (value) {
-                      setState(() {
-                        a = value!;
-                      });
-                    },
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 100,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      color: Color(0xffFFB342),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "You have to pay 50% of the amount of service while booking, and another 50% will be collected by our service provider after the service is completed.",
-                        style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          letterSpacing: 0.6,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+
               SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff0064FA),
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  fixedSize: Size(400, 70),
-                ),
-                onPressed: () {
-                  var options = {
-                    'key': 'rzp_test_TkM6x97TEmMQ7T',
-                    'amount': 20000,
-                    'name': 'Homeservice',
-                    'description': 'Booking fees',
-                    'prefill': {
-                      'contact': '8888888888',
-                      'email': 'test@razorpay.com'
-                    }
-                  };
-                  razorpay.open(options);
-
-
-                },
-                child: Text("PAY NOW"),
-              ),
-              SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -319,15 +256,10 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: _paymentSuccessful
-                      ? () {
-                    if (_selectedDate != null &&
-                        _selectedTime != null &&
-                        _descriptionController.text.isNotEmpty) {
-                      _bookService();
-                    }
-                  }
-                      : null, // Disabled if payment is not successful
+                  onPressed: () {
+                    // Add appointment booking functionality
+                    _bookService();
+                  },
                   child: Text(
                     'BOOK SERVICE',
                     style: GoogleFonts.poppins(fontSize: 16, letterSpacing: 2),
@@ -341,6 +273,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
     );
   }
 
+  //select Date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -355,6 +288,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
     }
   }
 
+  //select time
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -367,6 +301,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
     }
   }
 
+  // open map
   void _openMap() async {
     final String googleMapUrl =
         'https://www.google.com/maps/search/?api=1&query=${widget.provider.latitude},${widget.provider.longitude}';
@@ -377,19 +312,23 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
     }
   }
 
+  // phone call
   void _makePhoneCall(String phoneNumber) async {
     final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunch(phoneUri.toString())) {
       await launch(phoneUri.toString());
     } else {
-      throw 'Could not make a call to $phoneNumber';
+      throw 'Could not make a call on $phoneNumber this number';
     }
   }
+
+  // appointment
 
   void _bookService() {
     if (_selectedDate != null &&
         _selectedTime != null &&
         _descriptionController.text.isNotEmpty) {
+      // date, time, des, requestId, receiverId, senderId, status
       String date = DateFormat('MM/dd/yyyy').format(_selectedDate!);
       String time = _selectedTime!.format(context);
       String description = _descriptionController.text;
@@ -398,6 +337,7 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
       String receiverId = widget.provider.uid;
       String status = 'pending';
 
+      //save appointment
       _requestDatabase.child(requestId).set({
         'date': date,
         'time': time,
@@ -412,36 +352,17 @@ class _ProviderDetailPageState extends State<ProviderDetailPage> {
           _selectedTime = null;
           _descriptionController.clear();
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Service booked successfully')));
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Service booked successfully')));
       }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to book your Service, Try Again later!')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content:
+            Text('Failed to book your Service, Try Again later!!')));
       });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Select a date and time also add a description for appointment')));
-    }
-  }
-
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    setState(() {
-      _paymentSuccessful = true; // Payment was successful
-    });
-    Fluttertoast.showToast(msg: "Your payment is successful!");
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    setState(() {
-      _paymentSuccessful = false; // Payment failed
-    });
-    Fluttertoast.showToast(msg: "Your payment failed.");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    try {
-      razorpay.clear(); // Removes all listeners
-    } catch (e) {
-      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+              'Select a date and time also add a description for appointment')));
     }
   }
 }
