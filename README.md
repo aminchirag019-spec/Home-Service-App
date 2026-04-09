@@ -26,8 +26,6 @@ Copy
 
 Edit
 
-git clone https://github.com/Jay-Patel-070/Homeserviceapp.git
-
 cd home-service-app
 
 2️⃣ Install Dependencies
